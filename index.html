@@ -1,0 +1,45 @@
+<!-- index.html -->
+{% extends "layout.html" %}
+{% block title %}الرئيسية{% endblock %}
+{% block content %}
+
+<!-- قسم المقدمة (Hero Section) -->
+<div class="hero">
+    <div class="hero-content" data-aos="fade-up">
+        <h1>مرحبًا بك في MovieMatch</h1>
+        <p>اكتشف أفلامًا جديدة تناسب ذوقك</p>
+        <a href="{{ url_for('register') }}" class="btn btn-primary">ابدأ الآن</a>
+    </div>
+</div>
+
+<!-- شريط التمرير للأفلام الشعبية -->
+<div class="carousel-container">
+    <h2>الأفلام الشعبية</h2>
+    <div class="carousel">
+        {% for movie in popular_movies %}
+            <div class="carousel-item" data-aos="fade-up">
+                {% if movie.poster_path %}
+                    <img src="{{ IMAGE_BASE_URL }}{{ movie.poster_path }}" alt="{{ movie.title }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='download.jpeg') }}" alt="{{ movie.title }}">
+                {% endif %}
+                <h4>{{ movie.title }}</h4>
+                <!-- عرض التصنيفات -->
+                {% if movie.genre_ids %}
+                    {% set genres = [] %}
+                    {% for genre_id in movie.genre_ids %}
+                        {% set genre_name = genre_mapping.get(genre_id) %}
+                        {% if genre_name %}
+                            {% set genres = genres + [genre_name] %}
+                        {% endif %}
+                    {% endfor %}
+                    <p class="genres">{{ genres | join(', ') }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+</div>
+
+<!-- باقي المحتوى -->
+
+{% endblock %}

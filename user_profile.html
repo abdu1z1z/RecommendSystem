@@ -1,0 +1,44 @@
+<!-- user_profile.html -->
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>مرحبًا بك، المستخدم رقم {{ user_id }}</h2>
+
+<h3>أفلام شاهدتها مؤخرًا:</h3>
+<div class="movies-grid">
+    {% for movie in watched_movies %}
+        <div class="movie-card">
+            {% if movie.poster_path and movie.poster_path != '' %}
+                <img src="{{ IMAGE_BASE_URL }}{{ movie.poster_path }}" alt="{{ movie.title }}">
+            {% else %}
+                <img src="{{ url_for('static', filename='download.jpeg') }}" alt="{{ movie.title }}">
+            {% endif %}
+            <h4>{{ movie.title }}</h4>
+            <!-- عرض التصنيفات -->
+            {% if movie.genres %}
+                <p class="genres">{{ movie.genres | join(', ') }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+
+<h3>توصيات لك:</h3>
+<div class="movies-grid">
+    {% for movie in recommended_movies %}
+        <div class="movie-card">
+            {% if movie.poster_path and movie.poster_path != '' %}
+                <img src="{{ IMAGE_BASE_URL }}{{ movie.poster_path }}" alt="{{ movie.title }}">
+            {% else %}
+                <img src="{{ url_for('static', filename='download.jpeg') }}" alt="{{ movie.title }}">
+            {% endif %}
+            <h4>{{ movie.title }}</h4>
+            <!-- عرض التصنيفات -->
+            {% if movie.genres %}
+                <p class="genres">{{ movie.genres | join(', ') }}</p>
+            {% endif %}
+        </div>
+    {% endfor %}
+</div>
+
+{% endblock %}

@@ -1,0 +1,47 @@
+<!-- select_movies.html -->
+{% extends "layout.html" %}
+{% block content %}
+
+<h2>اختر أفلامك المفضلة</h2>
+
+<form method="post">
+    <!-- حقل البحث -->
+    <input type="text" name="search" value="{{ search_query }}" placeholder="بحث عن فيلم">
+    <button type="submit" name="action" value="search">بحث</button>
+
+    <!-- عرض الأفلام -->
+    <div class="movies-grid">
+        {% for movie in movies %}
+            <div class="movie-card">
+                <input type="checkbox" name="movies" value="{{ movie.movieId }}"
+                       {% if movie.movieId in selected_movie_ids %}checked{% endif %}>
+                <!-- عرض صورة البوستر -->
+                {% if movie.poster_path and movie.poster_path != '' %}
+                    <img src="{{ IMAGE_BASE_URL }}{{ movie.poster_path }}" alt="{{ movie.title }}">
+                {% else %}
+                    <img src="{{ url_for('static', filename='download.jpeg') }}" alt="{{ movie.title }}">
+                {% endif %}
+                <label>{{ movie.title }}</label>
+                <!-- عرض التصنيفات -->
+                {% if movie.genres %}
+                    <p class="genres">{{ movie.genres | join(', ') }}</p>
+                {% endif %}
+            </div>
+        {% endfor %}
+    </div>
+
+    <!-- التحكم في الصفحات -->
+    <div class="pagination">
+        {% if page > 1 %}
+            <button type="submit" name="page" value="{{ page - 1 }}" name="action" value="paginate">السابق</button>
+        {% endif %}
+        {% if page < pages %}
+            <button type="submit" name="page" value="{{ page + 1 }}" name="action" value="paginate">التالي</button>
+        {% endif %}
+    </div>
+
+    <!-- زر الإرسال النهائي -->
+    <button type="submit" name="action" value="submit">إرسال</button>
+</form>
+
+{% endblock %}

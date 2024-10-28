@@ -1,0 +1,14 @@
+<!-- search_user.html -->
+{% extends "layout.html" %}
+{% block title %}بحث عن مستخدم{% endblock %}
+{% block content %}
+<h2 class="title">بحث عن مستخدم موجود</h2>
+<form method="POST">
+    <label for="user_id">أدخل رقم تعريف المستخدم:</label>
+    <input type="number" name="user_id" id="user_id" required>
+    <button type="submit" class="btn">بحث</button>
+</form>
+{% if error %}
+    <p class="error">{{ error }}</p>
+{% endif %}
+{% endblock %}

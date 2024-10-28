@@ -1,0 +1,45 @@
+<!-- layout.html -->
+<!DOCTYPE html>
+<html lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}MovieMatch{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- روابط CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
+    <!-- خطوط جوجل -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
+    <!-- مكتبة Font Awesome للأيقونات -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css">
+    <!-- مكتبة AOS للتأثيرات الحركية -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.css">
+</head>
+<body>
+    <!-- رأس الصفحة -->
+    <header>
+        <img src="{{ url_for('static', filename='images.png') }}" alt="MovieMatch Logo" class="logo">
+        <nav>
+            <a href="{{ url_for('index') }}">الرئيسية</a>
+            <a href="{{ url_for('register') }}">تسجيل مستخدم جديد</a>
+            <a href="{{ url_for('search_user') }}">بحث عن مستخدم</a>
+        </nav>
+    </header>
+
+    <!-- المحتوى الرئيسي -->
+    <div class="container">
+        {% block content %}{% endblock %}
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <p>&copy; 2023 MovieMatch. جميع الحقوق محفوظة.</p>
+    </footer>
+
+    <!-- ملفات JavaScript -->
+    <!-- مكتبة AOS للتأثيرات الحركية -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.4/aos.js"></script>
+    <script>
+        AOS.init();
+    </script>
+</body>
+</html>
